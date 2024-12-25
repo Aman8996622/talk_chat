@@ -3,8 +3,7 @@ import { CustomSupabase } from "./config/db_config";
 import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser = require("body-parser");
-
-import { authRoutes } from "./routes";
+import { authRoutes, contactRoutes } from "./routes";
 
 dotenv.config({ path: "./config.env" });
 
@@ -20,10 +19,15 @@ dotenv.config({ path: "./config.env" });
 const app = express();
 
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(authRoutes);
+app.use(express.urlencoded({ extended: true }));
 
+app.use(authRoutes);
+app.use(contactRoutes);
+
+app.post("/contact", async (req, res) => {
+  console.log("request body", req.body);
+});
 // this is unable the form data to be parsed
 
 app.get("/", (req, res) => {

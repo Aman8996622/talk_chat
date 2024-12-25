@@ -15,6 +15,8 @@ interface User {
 }
 
 export async function signUp(req: Request, res: Response): Promise<void> {
+  console.log("request body", req.body, req.headers);
+
   // Parse the request body and cast it to User type after validation
   const requestBody = req.body as unknown as User;
 
@@ -106,31 +108,31 @@ interface LoginUser {
 }
 
 export async function login(req: Request, res: Response): Promise<void> {
-  // Add body-parser middleware before accessing req.body
-
-  const requestBody = req.body as unknown as LoginUser;
-
-  console.log("requestBody", requestBody);
+  // console.log("request body", req.body);
 
   try {
-    const { email, password } = req.body as LoginUser;
+    console.log("request", req.headers);
+    // For form-data, we need to access the fields directly
+    const email = req.body.email;
+    const password = req.body.password;
 
-    console.log("email", email);
-    console.log("password", password);
+    console.log("Form data received:", {
+      email: email,
+      password: password,
+    });
 
     if (!email || !password) {
       res.status(400).json({ error: "Email and password are required" });
       return;
     }
+
     const { data: user, error } = await CustomSupabase.from("user")
       .select("*")
       .eq("email", email)
       .single();
 
-    console.log("user", user);
     if (error || !user) {
-      console.log("error", error);
-
+      console.log("Database error:", error);
       res.status(401).json({ error: "Invalid credentials" });
       return;
     }
@@ -146,6 +148,7 @@ export async function login(req: Request, res: Response): Promise<void> {
       {
         id: user.id,
         email: user.email,
+        phone: user.phone_number,
       },
       "shhh",
       {

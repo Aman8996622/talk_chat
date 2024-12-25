@@ -14,11 +14,14 @@ routes.post(
   upload.single("profile_image"),
   async (req: ExpressRequest, res: Response) => {
     await signUp(req as any, res as any);
+
   }
 );
 
-routes.post("/login", async (req: ExpressRequest, res: Response) => {
-  await login(req as any, res as any);
+
+
+routes.post("/login", async (resquest: ExpressRequest, response: Response) => {
+  await login(resquest, response);
 });
 
 export { routes as authRoutes };

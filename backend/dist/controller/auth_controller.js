@@ -20,6 +20,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 function signUp(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
+        console.log("request body", req.body, req.headers);
         // Parse the request body and cast it to User type after validation
         const requestBody = req.body;
         try {
@@ -92,13 +93,16 @@ function signUp(req, res) {
 }
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        // Add body-parser middleware before accessing req.body
-        const requestBody = req.body;
-        console.log("requestBody", requestBody);
+        // console.log("request body", req.body);
         try {
-            const { email, password } = req.body;
-            console.log("email", email);
-            console.log("password", password);
+            console.log("request", req.headers);
+            // For form-data, we need to access the fields directly
+            const email = req.body.email;
+            const password = req.body.password;
+            console.log("Form data received:", {
+                email: email,
+                password: password,
+            });
             if (!email || !password) {
                 res.status(400).json({ error: "Email and password are required" });
                 return;
@@ -106,10 +110,9 @@ function login(req, res) {
             const { data: user, error } = yield db_config_1.CustomSupabase.from("user")
                 .select("*")
                 .eq("email", email)
-                .maybeSingle();
-            console.log("user", user);
+                .single();
             if (error || !user) {
-                console.log("error", error);
+                console.log("Database error:", error);
                 res.status(401).json({ error: "Invalid credentials" });
                 return;
             }
@@ -121,6 +124,7 @@ function login(req, res) {
             const token = jsonwebtoken_1.default.sign({
                 id: user.id,
                 email: user.email,
+                phone: user.phone_number,
             }, "shhh", {
                 expiresIn: "7d",
             });
