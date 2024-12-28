@@ -1,9 +1,11 @@
 [build]
-   functions = "backend/src/functions"
+   functions = "backend/src/functions/api.ts"
    command = "npm run build"
+   
+
 [dev] 
    functions = "backend/src/functions"
-  
+   
 
 [functions]
   node_bundler = "esbuild"
