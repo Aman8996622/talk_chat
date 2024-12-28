@@ -1,11 +1,12 @@
 import express from "express";
-import { CustomSupabase } from "./config/db_config";
+import { CustomSupabase } from "../config/db_config";
 import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser = require("body-parser");
-import { authRoutes, contactRoutes } from "./routes";
+import { authRoutes, contactRoutes } from "../routes";
 
 import { Handler } from "@netlify/functions";
+import serverless from "serverless-http";
 
 dotenv.config({ path: "./config.env" });
 
@@ -35,9 +36,9 @@ app.post("/contact", async (req, res) => {
 app.get("/", (req, res) => {
   res.send("Hello from Express!");
 });
-
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_KEY;
-});
+export const handler = serverless(app);
+// app.listen(3000, () => {
+//   console.log("Server running on port 3000");
+//   const supabaseUrl = process.env.SUPABASE_URL;
+//   const supabaseKey = process.env.SUPABASE_KEY;
+// });
