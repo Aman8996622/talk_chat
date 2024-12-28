@@ -19,7 +19,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 function signUp(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a;
+        var _a, _b;
         console.log("request body", req.body, req.headers);
         // Parse the request body and cast it to User type after validation
         const requestBody = req.body;
@@ -76,7 +76,7 @@ function signUp(req, res) {
             const token = jsonwebtoken_1.default.sign({
                 id: newUser.id,
                 email: newUser.email,
-            }, "shhh", {
+            }, (_b = process.env.JWT_SECRET) !== null && _b !== void 0 ? _b : "", {
                 expiresIn: "7d",
             });
             res.status(200).json({
@@ -94,6 +94,7 @@ function signUp(req, res) {
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         // console.log("request body", req.body);
+        var _a;
         try {
             console.log("request", req.headers);
             // For form-data, we need to access the fields directly
@@ -125,7 +126,7 @@ function login(req, res) {
                 id: user.id,
                 email: user.email,
                 phone: user.phone_number,
-            }, "shhh", {
+            }, (_a = process.env.JWT_SECRET) !== null && _a !== void 0 ? _a : "", {
                 expiresIn: "7d",
             });
             res.status(200).json({

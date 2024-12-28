@@ -29,6 +29,7 @@ const storage = multer_1.default.diskStorage({
         const finalFileName = allowedExtensions.includes(extension.toLowerCase())
             ? `${baseName}-${timestamp}${extension}`
             : `${baseName}-${timestamp}`;
+        console.log("uploading the image name");
         callback(null, finalFileName);
     },
 });
