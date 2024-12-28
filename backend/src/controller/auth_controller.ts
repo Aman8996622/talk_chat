@@ -86,7 +86,7 @@ export async function signUp(req: Request, res: Response): Promise<void> {
         id: newUser.id,
         email: newUser.email,
       },
-      "shhh",
+      process.env.JWT_SECRET ?? "",
       {
         expiresIn: "7d",
       }
@@ -150,7 +150,7 @@ export async function login(req: Request, res: Response): Promise<void> {
         email: user.email,
         phone: user.phone_number,
       },
-      "shhh",
+      process.env.JWT_SECRET ?? "",
       {
         expiresIn: "7d",
       }
