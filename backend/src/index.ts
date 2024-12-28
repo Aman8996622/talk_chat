@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import bodyParser = require("body-parser");
 import { authRoutes, contactRoutes } from "./routes";
 
-import { Handler } from "@netlify/functions";
 
 dotenv.config({ path: "./config.env" });
 

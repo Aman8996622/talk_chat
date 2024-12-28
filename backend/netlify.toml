@@ -1,8 +1,9 @@
 [build]
-  functions = "backend/src/functions"
-  command = "npm run build"
-dev 
-functions = "backend/src/functions"
+   functions = "backend/src/functions"
+   command = "npm run build"
+[dev] 
+   functions = "backend/src/functions"
+  
 
 [functions]
   node_bundler = "esbuild"
