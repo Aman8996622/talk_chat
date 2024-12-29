@@ -5,13 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = verifyToken;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const secretKey = "shhh";
 function verifyToken(req, res, next) {
     var _a, _b;
     if (req.headers.hasOwnProperty("authorization")) {
         let token = (_b = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1]) !== null && _b !== void 0 ? _b : "";
         //  console.log(token);
-        const decoded = jsonwebtoken_1.default.verify(token, secretKey);
+        const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
         req.user = {
             id: decoded.id, // Add user id from the token
             email: decoded.email,

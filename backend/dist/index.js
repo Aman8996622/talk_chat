@@ -29,7 +29,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(routes_1.authRoutes);
-app.use(routes_1.contactRoutes);
+// app.use(contactRoutes);
 app.post("/contact", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("request body", req.body);
 }));

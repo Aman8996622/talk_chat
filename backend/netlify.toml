@@ -1,6 +1,0 @@
-[build]
-   functions = "backend/functions"
-   command = "npm run build"
-
-[functions]
-  node_bundler = "esbuild"

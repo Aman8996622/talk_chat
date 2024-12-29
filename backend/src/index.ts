@@ -2,8 +2,9 @@ import express from "express";
 import { CustomSupabase } from "./config/db_config";
 import cors from "cors";
 import dotenv from "dotenv";
-import bodyParser = require("body-parser");
-import { authRoutes, contactRoutes } from "./routes";
+// import bodyParser = require("body-parser");
+import bodyParser from "body-parser";
+import { authRoutes,  } from "./routes";
 
 
 dotenv.config({ path: "./config.env" });
@@ -24,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(authRoutes);
-app.use(contactRoutes);
+// app.use(contactRoutes);
 
 app.post("/contact", async (req, res) => {
   console.log("request body", req.body);
