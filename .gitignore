@@ -4,6 +4,8 @@ backend/config.env
 # Ignore node_modules (for Node.js projects)
 backend/node_modules/
 
+backend/nodemon.json
+
 # Ignore logs
 logs/
 *.log

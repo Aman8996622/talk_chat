@@ -11,7 +11,7 @@ const auth_controller_1 = require("../controller/auth_controller");
 const routes = (0, express_1.Router)();
 exports.authRoutes = routes;
 // Separate the function for better parsing by Babel
-routes.post("/signUp", (0, upload_middleware_1.setUploadPath)("./public/images/user_profile"), upload_1.default.single("profile_image"), auth_controller_1.signUp
+routes.post("/signUp", (0, upload_middleware_1.setUploadPath)(), upload_1.default.single("profile_image"), auth_controller_1.signUp
 // async (req: Request, res: Response) => {
 //   await signUp(req as any, res as any);
 // }

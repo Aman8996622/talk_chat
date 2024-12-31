@@ -11,11 +11,10 @@ const routes = Router();
 routes.post(
   "/signUp",
   setUploadPath("./public/images/user_profile"),
+
   upload.single("profile_image"),
+
   signUp
-  // async (req: Request, res: Response) => {
-  //   await signUp(req as any, res as any);
-  // }
 );
 
 // const handleLogin = async (request: Request, response: Response) => {

@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 
 import { Request, Response } from "express";
 
+import { UploadDir } from "../core/dir/dir_name";
+
 import bcrypt from "bcrypt";
 
 interface User {
@@ -26,8 +28,12 @@ export async function signUp(req: Request, res: Response): Promise<void> {
       "user"
     )
       .select()
-      .eq("email", requestBody?.email ?? "")
-      .maybeSingle(); // Use maybeSingle() instead of single()
+      .or(
+        `email.eq.${requestBody?.email ?? ""},phone_number.eq.${
+          requestBody?.phone ?? ""
+        }`
+      )
+      .maybeSingle(); // Use maybeSingle() to check for either email or phone match
 
     if (userError && userError.code !== "PGRST116") {
       // Ignore PGRST116 error
@@ -62,7 +68,7 @@ export async function signUp(req: Request, res: Response): Promise<void> {
           email: requestBody.email,
           password: crptPassword, // Note: Should hash password before storing
           profile_image: req.file
-            ? `${process.env.BASE_URL}/public/images/${req.file.filename}`
+            ? `${process.env.BASE_URL}${UploadDir.USER_PROFILE}/${req.file.filename}`
             : null,
           phone_number: requestBody.phone,
         },

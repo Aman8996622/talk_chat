@@ -16,6 +16,7 @@ exports.signUp = signUp;
 exports.login = login;
 const db_config_1 = require("../config/db_config");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dir_name_1 = require("../core/dir/dir_name");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 function signUp(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -57,7 +58,7 @@ function signUp(req, res) {
                     email: requestBody.email,
                     password: crptPassword, // Note: Should hash password before storing
                     profile_image: req.file
-                        ? `${process.env.BASE_URL}/public/images/${req.file.filename}`
+                        ? `${process.env.BASE_URL}${dir_name_1.UploadDir.USER_PROFILE}/${req.file.filename}`
                         : null,
                     phone_number: requestBody.phone,
                 },
